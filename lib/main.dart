@@ -1,7 +1,7 @@
-import 'package:enotepad/home.dart';
+import 'package:enotepad/screens/home.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(
-    MaterialApp(home: Home(),));
+    MaterialApp(home: Home(),debugShowCheckedModeBanner: false,));
 
 
