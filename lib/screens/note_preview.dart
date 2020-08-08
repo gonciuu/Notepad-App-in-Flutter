@@ -84,12 +84,12 @@ class NotePreview extends StatelessWidget {
                                   Row(
                                     children: <Widget>[
                                       Icon(
-                                        Icons.event_note,
+                                        OMIcons.event,
                                         color: Colors.grey[400],
                                         size: 28.0,
                                       ),SizedBox(width: 15.0,),
                                       Icon(
-                                        Icons.rate_review,
+                                        OMIcons.note,
                                         color: Colors.grey[400],
                                         size: 28.0,
                                       )
