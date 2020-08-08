@@ -99,22 +99,7 @@ class NotePreview extends StatelessWidget {
                               ),
                             ),
                             Spacer(),
-                            Align(alignment: Alignment.centerRight, child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(topRight: Radius.circular(20.0),topLeft: Radius.circular(20.0)),
-                                color: Colors.grey[300],
-                              ),
-                              padding: EdgeInsets.only(top: 15.0,bottom: 15.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  Icon(OMIcons.edit,color: Colors.grey[800],size: 36.0),
-                                  Icon(OMIcons.star,color: Colors.amber,size: 36.0,),
-                                  Icon(OMIcons.delete,color: Colors.grey[800],size: 36.0)
-                                ],
-                              ),
-                            )),
-
+                            bottomNav
                           ],
                           crossAxisAlignment: CrossAxisAlignment.start,
                         ),
@@ -129,4 +114,28 @@ class NotePreview extends StatelessWidget {
       ),
     );
   }
+
+
+  //--------------bottom navbar note events------------------
+  final bottomNav =  Align(alignment: Alignment.centerRight, child: Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.only(topRight: Radius.circular(20.0),topLeft: Radius.circular(20.0)),
+      color: Colors.grey[300],
+    ),
+    padding: EdgeInsets.only(top: 15.0,bottom: 15.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        Icon(OMIcons.edit,color: Colors.grey[800],size: 36.0),
+        Icon(OMIcons.star,color: Colors.amber,size: 36.0,),
+        Icon(OMIcons.delete,color: Colors.grey[800],size: 36.0)
+      ],
+    ),
+  ));
+
 }
+
+
+
+
+
