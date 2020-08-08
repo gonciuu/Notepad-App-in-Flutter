@@ -7,7 +7,7 @@ class NoteTemplate extends StatelessWidget {
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+          padding: const EdgeInsets.only(top: 8.0, bottom: 0.0),
           child: ListTile(
             title: Text(
               "Note Sample Title",
@@ -31,12 +31,30 @@ class NoteTemplate extends StatelessWidget {
               ),
             ),
             trailing: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Icon(
-                  Icons.arrow_back,
-                  color: Colors.blueGrey,
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Icon(
+                      Icons.star_border,
+                      color: Colors.grey[700],
+                      size: 28.0,
+                    ),
+                    SizedBox(
+                      width: 3.0,
+                    ),
+                    Icon(Icons.more_vert, color: Colors.grey[900], size: 28.0),
+                  ],
                 ),
+                SizedBox(
+                  height: 13.0,
+                ),
+                Text(
+                  "Oct 27,2019, 9:05",
+                  style: TextStyle(color: Colors.grey[600], fontSize: 13.0),
+                )
               ],
             ),
           ),
