@@ -23,7 +23,7 @@ class NoteTemplate extends StatelessWidget {
               child: Text(
                 "Note Sample Subtitle here",
                 style: TextStyle(
-                    fontWeight: FontWeight.w500,
+                    fontStyle: FontStyle.normal,
                     fontSize: 17.0,
                     color: Colors.grey[500]),
                 maxLines: 2,
@@ -40,7 +40,7 @@ class NoteTemplate extends StatelessWidget {
                     Icon(
                       Icons.star_border,
                       color: Colors.grey[700],
-                      size: 28.0,
+                      size: 26.0,
                     ),
                     SizedBox(
                       width: 3.0,
@@ -53,14 +53,14 @@ class NoteTemplate extends StatelessWidget {
                 ),
                 Text(
                   "Oct 27,2019, 9:05",
-                  style: TextStyle(color: Colors.grey[600], fontSize: 13.0),
+                  style: TextStyle(color: Colors.grey[500], fontSize: 13.0),
                 )
               ],
             ),
           ),
         ),
         Divider(
-          color: Colors.grey[400],
+          color: Colors.grey[300],
         )
       ],
     );

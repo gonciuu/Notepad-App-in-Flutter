@@ -14,7 +14,7 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(top: 18.0, left: 12.0, right: 12.0),
+            padding: const EdgeInsets.only(top: 25.0, left: 12.0, right: 12.0),
             child: Column(
               children: <Widget>[
                 Row(
@@ -62,6 +62,16 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
+      floatingActionButton: Container(
+      height: 63.0,
+      width: 63.0,
+      child: FittedBox(
+        child:  FloatingActionButton(
+          backgroundColor: Color.fromARGB(255, 15, 34, 102), onPressed: () {  },
+          child: Icon(Icons.add, color: Colors.white,size: 38.0,),
+        ),
+      ),
+    ),
     );
   }
 }
