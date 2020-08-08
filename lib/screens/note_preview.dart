@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 class NotePreview extends StatelessWidget {
   @override
@@ -24,6 +25,7 @@ class NotePreview extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
+                  margin: EdgeInsets.only(top: 25.0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20.0),
@@ -68,8 +70,9 @@ class NotePreview extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.fromLTRB(20.0, 22.0, 30.0, 10.0),
+                              padding: EdgeInsets.fromLTRB(25.0, 25.0, 50.0, 10.0),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
                                     "Oct 27,2019, 9:05",
@@ -77,10 +80,41 @@ class NotePreview extends StatelessWidget {
                                       color: Colors.grey[500],
                                       fontSize: 14.0
                                     ),
-                                  )
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.event_note,
+                                        color: Colors.grey[400],
+                                        size: 28.0,
+                                      ),SizedBox(width: 15.0,),
+                                      Icon(
+                                        Icons.rate_review,
+                                        color: Colors.grey[400],
+                                        size: 28.0,
+                                      )
+                                    ],
+                                  ),
                                 ],
                               ),
-                            )
+                            ),
+                            Spacer(),
+                            Align(alignment: Alignment.centerRight, child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(topRight: Radius.circular(20.0),topLeft: Radius.circular(20.0)),
+                                color: Colors.grey[300],
+                              ),
+                              padding: EdgeInsets.only(top: 15.0,bottom: 15.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Icon(OMIcons.edit,color: Colors.grey[800],size: 36.0),
+                                  Icon(OMIcons.star,color: Colors.amber,size: 36.0,),
+                                  Icon(OMIcons.delete,color: Colors.grey[800],size: 36.0)
+                                ],
+                              ),
+                            )),
+
                           ],
                           crossAxisAlignment: CrossAxisAlignment.start,
                         ),
