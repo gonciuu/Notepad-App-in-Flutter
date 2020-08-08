@@ -60,7 +60,7 @@ class NoteTemplate extends StatelessWidget {
           ),
         ),
         Divider(
-          color: Colors.grey[600],
+          color: Colors.grey[400],
         )
       ],
     );
