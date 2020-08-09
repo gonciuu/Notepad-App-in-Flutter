@@ -7,9 +7,19 @@ class WriteNote extends StatefulWidget {
 }
 
 class _WriteNoteState extends State<WriteNote> {
+  //-------go to next formfield on enter clicked----------
   final descriptionFocus = FocusNode();
   final dateFocus = FocusNode();
   final timeFocus = FocusNode();
+
+  //===================================================
+
+  Color homeButtonColor = Color.fromARGB(255, 15, 34, 102);
+  Color homeButtonTextColor = Colors.white;
+  Color businessButtonColor = Colors.grey[200];
+  Color businessButtonTextColor = Colors.grey[900];
+  Color otherButtonColor = Colors.grey[200];
+  Color otherButtonTextColor = Colors.grey[900];
 
   @override
   Widget build(BuildContext context) {
@@ -133,20 +143,22 @@ class _WriteNoteState extends State<WriteNote> {
                   ],
                 ),
                 SizedBox(
-                  height: 30.0,
+                  height: 35.0,
                 ),
                 Row(
                   children: <Widget>[
                     Expanded(
                       child: FlatButton(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
-                        color: Color.fromARGB(255, 15, 34, 102),
+                        color: homeButtonColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
-                        onPressed: () {},
+                        onPressed: () {
+                          setColor("home");
+                        },
                         child: Text(
                           "Home",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: homeButtonTextColor),
                         ),
                       ),
                     ),
@@ -156,11 +168,16 @@ class _WriteNoteState extends State<WriteNote> {
                     Expanded(
                       child: FlatButton(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
-                        color: Colors.grey[200],
+                        color: businessButtonColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
-                        onPressed: () {},
-                        child: Text("Business"),
+                        onPressed: () {
+                          setColor("business");
+                        },
+                        child: Text(
+                          "Business",
+                          style: TextStyle(color: businessButtonTextColor),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -169,11 +186,16 @@ class _WriteNoteState extends State<WriteNote> {
                     Expanded(
                       child: FlatButton(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
-                        color: Colors.grey[200],
+                        color: otherButtonColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
-                        onPressed: () {},
-                        child: Text("Other"),
+                        onPressed: () {
+                          setColor("other");
+                        },
+                        child: Text(
+                          "Other",
+                          style: TextStyle(color: otherButtonTextColor),
+                        ),
                       ),
                     )
                   ],
@@ -199,5 +221,32 @@ class _WriteNoteState extends State<WriteNote> {
             ))),
       ),
     );
+  }
+
+  void setColor(String bt) {
+    setState(() {
+      homeButtonColor = Colors.grey[200];
+      homeButtonTextColor = Colors.grey[900];
+      businessButtonColor = Colors.grey[200];
+      businessButtonTextColor = Colors.grey[900];
+      otherButtonColor = Colors.grey[200];
+      otherButtonTextColor = Colors.grey[900];
+
+      switch (bt) {
+        case "home":
+          homeButtonColor = Color.fromARGB(255, 15, 34, 102);
+          homeButtonTextColor = Colors.white;
+          break;
+        case "business":
+          businessButtonColor = Color.fromARGB(255, 15, 34, 102);
+          businessButtonTextColor = Colors.white;
+
+          break;
+        case "other":
+          otherButtonColor = Color.fromARGB(255, 15, 34, 102);
+          otherButtonTextColor = Colors.white;
+          break;
+      }
+    });
   }
 }
