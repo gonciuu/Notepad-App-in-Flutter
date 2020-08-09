@@ -16,7 +16,7 @@ class _NotesDrawerState extends State<NotesDrawer> {
               accountEmail: Text("Your notepad app",style: TextStyle(fontSize: 15.0),),
               currentAccountPicture: CircleAvatar(
                 backgroundImage:
-                    NetworkImage("https://vistapointe.net/images/human-4.jpg"),
+                    AssetImage("img/avatar.png"),
               ),
               decoration:
                   BoxDecoration(color: Color.fromARGB(255, 15, 34, 102))),
