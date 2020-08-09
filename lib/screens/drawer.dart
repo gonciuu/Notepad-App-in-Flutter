@@ -27,7 +27,7 @@ class _NotesDrawerState extends State<NotesDrawer> {
                 decoration:
                     BoxDecoration(color: Color.fromARGB(255, 15, 34, 102))),
             SizedBox(
-              height: 15.0,
+              height: 7.0,
             ),
             ListTile(
               title: Text(
@@ -41,7 +41,7 @@ class _NotesDrawerState extends State<NotesDrawer> {
               ),
             ),
             Divider(
-              color: Colors.grey[200],
+              color: Colors.grey[400],
             ),
             ListTile(
               title: Text(
@@ -80,7 +80,9 @@ class _NotesDrawerState extends State<NotesDrawer> {
                 style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-              ),),
+              ),), Divider(
+              color: Colors.grey[400],
+            ),
             ListTile(
               title: Text(
                 "Home",
@@ -118,7 +120,9 @@ class _NotesDrawerState extends State<NotesDrawer> {
                 style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-              ),),
+              ),), Divider(
+              color: Colors.grey[400],
+            ),
             ListTile(
               title: Text(
                 "Other",
