@@ -49,11 +49,11 @@ class NoteTemplate extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: 13.0,
+                  height: 11.0,
                 ),
                 Text(
                   "Oct 27,2019, 9:05",
-                  style: TextStyle(color: Colors.grey[500], fontSize: 13.0),
+                  style: TextStyle(color: Colors.grey[500], fontSize: 12.0),
                 )
               ],
             ),
