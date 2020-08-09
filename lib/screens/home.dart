@@ -1,3 +1,4 @@
+import 'package:enotepad/screens/drawer.dart';
 import 'package:flutter/material.dart';
 
 import 'list_view/note_teplate.dart';
@@ -8,9 +9,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: NotesDrawer(),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
@@ -25,7 +31,9 @@ class _HomeState extends State<Home> {
                         Icons.menu,
                         color: Colors.grey[900],
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        _scaffoldKey.currentState.openDrawer();
+                      },
                       color: Colors.red[400],
                       iconSize: 32.0,
                     ),
