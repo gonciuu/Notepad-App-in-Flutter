@@ -7,6 +7,10 @@ class WriteNote extends StatefulWidget {
 }
 
 class _WriteNoteState extends State<WriteNote> {
+  final descriptionFocus = FocusNode();
+  final dateFocus = FocusNode();
+  final timeFocus = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,18 +41,29 @@ class _WriteNoteState extends State<WriteNote> {
                   ],
                 ),
                 SizedBox(
-                  height: 60.0,
+                  height: 50.0,
                 ),
                 TextFormField(
-                  decoration: textFieldDecoration, //title
+                  cursorColor: Color.fromARGB(255, 15, 34, 102),
+                  decoration: textFieldDecoration, //title]
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (v) {
+                    FocusScope.of(context).requestFocus(descriptionFocus);
+                  },
                 ),
                 SizedBox(
                   height: 20.0,
                 ),
                 TextFormField(
+                  cursorColor: Color.fromARGB(255, 15, 34, 102),
+                  focusNode: descriptionFocus,
                   decoration: textFieldDecoration.copyWith(
                       hintText: "Write Here note description", //description
                       labelText: "Description"),
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (v) {
+                    FocusScope.of(context).requestFocus(dateFocus);
+                  },
                 ),
                 SizedBox(
                   height: 20.0,
@@ -57,9 +72,15 @@ class _WriteNoteState extends State<WriteNote> {
                   children: <Widget>[
                     Expanded(
                       child: TextFormField(
+                        cursorColor: Color.fromARGB(255, 15, 34, 102),
+                        focusNode: dateFocus,
                         decoration: textFieldDecoration.copyWith(
                             hintText: "Write Here note date", //date
                             labelText: "Date"),
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (v) {
+                          FocusScope.of(context).requestFocus(timeFocus);
+                        },
                       ),
                     ),
                     SizedBox(
@@ -86,9 +107,12 @@ class _WriteNoteState extends State<WriteNote> {
                   children: <Widget>[
                     Expanded(
                       child: TextFormField(
+                        cursorColor: Color.fromARGB(255, 15, 34, 102),
+                        focusNode: timeFocus,
                         decoration: textFieldDecoration.copyWith(
                             hintText: "Write Here note time", //date
                             labelText: "Time"),
+                        textInputAction: TextInputAction.go,
                       ),
                     ),
                     SizedBox(
@@ -118,29 +142,40 @@ class _WriteNoteState extends State<WriteNote> {
                         padding: EdgeInsets.symmetric(vertical: 15.0),
                         color: Color.fromARGB(255, 15, 34, 102),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)
-                        ), onPressed: () {  }, child: Text("Home",style: TextStyle(color: Colors.white),),
+                            borderRadius: BorderRadius.circular(10.0)),
+                        onPressed: () {},
+                        child: Text(
+                          "Home",
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
-                    ),SizedBox(width: 20.0,),
+                    ),
+                    SizedBox(
+                      width: 20.0,
+                    ),
                     Expanded(
                       child: FlatButton(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
                         color: Colors.grey[200],
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)
-                        ), onPressed: () {  }, child: Text("Business"),
+                            borderRadius: BorderRadius.circular(10.0)),
+                        onPressed: () {},
+                        child: Text("Business"),
                       ),
-                    ),SizedBox(width: 20.0,),Expanded(
-
+                    ),
+                    SizedBox(
+                      width: 20.0,
+                    ),
+                    Expanded(
                       child: FlatButton(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
                         color: Colors.grey[200],
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)
-                        ), onPressed: () {  }, child: Text("Other"),
+                            borderRadius: BorderRadius.circular(10.0)),
+                        onPressed: () {},
+                        child: Text("Other"),
                       ),
                     )
-
                   ],
                 ),
                 Spacer(),
