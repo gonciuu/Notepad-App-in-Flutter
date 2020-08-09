@@ -51,7 +51,8 @@ class _HomeState extends State<Home> {
                   height: 30.0,
                 ),
                 ListView.builder(
-                  itemBuilder: (BuildContext context, int index) => NoteTemplate(),
+                  itemBuilder: (BuildContext context, int index) =>
+                      NoteTemplate(),
                   itemCount: 25,
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
@@ -63,15 +64,22 @@ class _HomeState extends State<Home> {
         ),
       ),
       floatingActionButton: Container(
-      height: 63.0,
-      width: 63.0,
-      child: FittedBox(
-        child:  FloatingActionButton(
-          backgroundColor: Color.fromARGB(255, 15, 34, 102), onPressed: () {  },
-          child: Icon(Icons.add, color: Colors.white,size: 38.0,),
+        height: 63.0,
+        width: 63.0,
+        child: FittedBox(
+          child: FloatingActionButton(
+            backgroundColor: Color.fromARGB(255, 15, 34, 102),
+            onPressed: () {
+              Navigator.pushNamed(context, "/write_note");
+            },
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 38.0,
+            ),
+          ),
         ),
       ),
-    ),
     );
   }
 }
