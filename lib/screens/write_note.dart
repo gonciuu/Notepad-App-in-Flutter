@@ -16,18 +16,23 @@ class _WriteNoteState extends State<WriteNote> {
                 child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.grey[900],
-                  size: 36.0,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text("Add New Note",style: TextStyle(color: Colors.grey[900],fontSize: 28.0)),
+                    IconButton(
+                      icon: Icon(Icons.clear,size: 32.0, color: Colors.grey[400],),
+                      onPressed: () {
+
+                      },
+                    )
+                  ],
                 ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                Text(
-                  "Add new Note",
-                  style: TextStyle(color: Colors.grey[900], fontSize: 28.0),
-                ),
+                FlatButton(
+                  onPressed: () {  },
+                  color: Colors.,
+                  child: Text("Add Note"),
+                )
               ],
             ))),
       ),
