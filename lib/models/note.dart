@@ -22,7 +22,17 @@ class Note {
     return map;
   }
 
-
+  Note mapToNote(Map<String,dynamic> map){
+    Note note =
+    Note(id: map['id'],
+        title:map['title'],
+        category:map['category'],
+        date:map['date'],
+        description:map['description'],
+        isStar:map['isStar'],
+        time:map['time']);
+    return note;
+  }
 
 
 
