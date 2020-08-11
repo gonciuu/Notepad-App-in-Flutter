@@ -1,4 +1,5 @@
 import 'package:enotepad/constans/text.dart';
+import 'package:enotepad/database/repository.dart';
 import 'package:enotepad/models/note.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,8 @@ class _WriteNoteState extends State<WriteNote> {
   //===================================================================
 
 
-  //
+  //---repo---
+  Repository _repository = Repository();
 
 
   @override
@@ -229,7 +231,7 @@ class _WriteNoteState extends State<WriteNote> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         padding: EdgeInsets.symmetric(vertical: 19.0),
-                        onPressed: () {
+                        onPressed: () async {
                           Note note = Note(
                               title: titleController.text,
                               description: descriptionController.text,
@@ -237,8 +239,8 @@ class _WriteNoteState extends State<WriteNote> {
                               time: timeController.text,
                               isStar: 0,
                               category: category);
-
-
+                          int result = await _repository.insertData("Notes", note.noteToMap());
+                          print(result);
                         },
                         color: Color.fromARGB(255, 15, 34, 102),
                         child: Text("Add Note",
