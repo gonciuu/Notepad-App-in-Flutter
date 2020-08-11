@@ -15,9 +15,14 @@ class Repository{
     return _database;
   }
 
-   Future<int> insertNote(table,data) async{
+   Future<int> insertNote(table,Map<String,dynamic> data) async{
     Database db = await database;
     return await db.insert(table, data);
+  }
+
+  Future<int> updateNote(table,Map<String,dynamic> data) async{
+    Database db = await database;
+    return await db.update(table, data,where: "id=?",whereArgs: [data['id']]);
   }
 
 
