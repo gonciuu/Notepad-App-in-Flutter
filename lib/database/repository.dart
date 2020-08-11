@@ -30,6 +30,9 @@ class Repository{
     return await db.delete(table,where: "id = ?",whereArgs:[id]);
   }
 
-  
+  Future<List<Map<String,dynamic>>> getAllData(String table) async{
+    Database db = await database;
+    return await db.query(table);
+  }
 
 }
