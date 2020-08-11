@@ -1,4 +1,5 @@
 import 'package:enotepad/constans/text.dart';
+import 'package:enotepad/models/note.dart';
 import 'package:flutter/material.dart';
 
 class WriteNote extends StatefulWidget {
@@ -14,12 +15,27 @@ class _WriteNoteState extends State<WriteNote> {
 
   //===================================================
 
+  //-----------button colors-----------------
   Color homeButtonColor = Color.fromARGB(255, 15, 34, 102);
   Color homeButtonTextColor = Colors.white;
   Color businessButtonColor = Colors.grey[200];
   Color businessButtonTextColor = Colors.grey[900];
   Color otherButtonColor = Colors.grey[200];
   Color otherButtonTextColor = Colors.grey[900];
+
+  //==========================================
+
+  //--------------------handle textfields text------------------------
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController dateController = TextEditingController();
+  final TextEditingController timeController = TextEditingController();
+  String category = 'home';
+  //===================================================================
+
+
+  //
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,16 +71,19 @@ class _WriteNoteState extends State<WriteNote> {
                 ),
                 TextFormField(
                   cursorColor: Color.fromARGB(255, 15, 34, 102),
-                  decoration: textFieldDecoration, //title]
+                  decoration: textFieldDecoration,
+                  //title]
                   textInputAction: TextInputAction.next,
                   onFieldSubmitted: (v) {
                     FocusScope.of(context).requestFocus(descriptionFocus);
                   },
+                  controller: this.titleController,
                 ),
                 SizedBox(
                   height: 20.0,
                 ),
                 TextFormField(
+                  controller: this.descriptionController,
                   cursorColor: Color.fromARGB(255, 15, 34, 102),
                   focusNode: descriptionFocus,
                   decoration: textFieldDecoration.copyWith(
@@ -82,6 +101,7 @@ class _WriteNoteState extends State<WriteNote> {
                   children: <Widget>[
                     Expanded(
                       child: TextFormField(
+                        controller: this.dateController,
                         cursorColor: Color.fromARGB(255, 15, 34, 102),
                         focusNode: dateFocus,
                         decoration: textFieldDecoration.copyWith(
@@ -117,6 +137,7 @@ class _WriteNoteState extends State<WriteNote> {
                   children: <Widget>[
                     Expanded(
                       child: TextFormField(
+                        controller: this.timeController,
                         cursorColor: Color.fromARGB(255, 15, 34, 102),
                         focusNode: timeFocus,
                         decoration: textFieldDecoration.copyWith(
@@ -208,7 +229,17 @@ class _WriteNoteState extends State<WriteNote> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         padding: EdgeInsets.symmetric(vertical: 19.0),
-                        onPressed: () {},
+                        onPressed: () {
+                          Note note = Note(
+                              title: titleController.text,
+                              description: descriptionController.text,
+                              date: dateController.text,
+                              time: timeController.text,
+                              isStar: 0,
+                              category: category);
+
+
+                        },
                         color: Color.fromARGB(255, 15, 34, 102),
                         child: Text("Add Note",
                             style:
@@ -247,6 +278,7 @@ class _WriteNoteState extends State<WriteNote> {
           otherButtonTextColor = Colors.white;
           break;
       }
+      category = bt;
     });
   }
 }
