@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 class NoteTemplate extends StatelessWidget {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,7 +49,9 @@ class NoteTemplate extends StatelessWidget {
                     SizedBox(
                       width: 3.0,
                     ),
-                    Icon(Icons.more_vert, color: Colors.grey[900], size: 28.0),
+                    GestureDetector(child: Icon(Icons.more_vert, color: Colors.grey[900], size: 28.0),onTapDown: (TapDownDetails details) {
+                      _showPopup(context,details.globalPosition);
+                    },),
                   ],
                 ),
                 SizedBox(
@@ -64,5 +70,27 @@ class NoteTemplate extends StatelessWidget {
         )
       ],
     );
+  }
+
+
+  void _showPopup(BuildContext context,Offset offset) async {
+    await showMenu(context: context, position: RelativeRect.fromLTRB(offset.dx,offset.dy,0,0), items:[
+      PopupMenuItem(child: Row(
+        children: <Widget>[
+          Text('Delete',style: TextStyle(
+            fontWeight: FontWeight.w600,color: Colors.grey[900],fontSize: 16.0
+          ),),SizedBox(width: 5.0,),
+          Icon(OMIcons.delete,color: Colors.grey[900],size: 25.0,)
+        ],
+      ),value: 'delete'),
+      PopupMenuItem(child: Row(
+        children: <Widget>[
+          Text('Edit',style: TextStyle(
+              fontWeight: FontWeight.w600,color: Colors.grey[900],fontSize: 16.0
+          ),),SizedBox(width: 23.0,),
+          Icon(OMIcons.edit,color: Colors.grey[900],size: 25.0,)
+        ],
+      ),value: 'edit')
+    ]);
   }
 }
