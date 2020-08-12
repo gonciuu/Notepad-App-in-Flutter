@@ -41,7 +41,17 @@ class _WriteNoteState extends State<WriteNote> {
 
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+    //initial start values
+    if(dateController.text.isEmpty )dateController.text = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    if(timeController.text.isEmpty)timeController.text = TimeOfDay.now().format(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -297,6 +307,7 @@ class _WriteNoteState extends State<WriteNote> {
   }
 
 
+  //----------show time picker to pick the note time--------------
   Future _pickTime(BuildContext context) async {
     TimeOfDay time = TimeOfDay.now();
     TimeOfDay t = await showTimePicker(
@@ -307,6 +318,8 @@ class _WriteNoteState extends State<WriteNote> {
       setState(() =>timeController.text = t.format(context));
   }
 
+
+  //---------show date picker to pick note date----------
   Future _pickDate(BuildContext context) async {
     DateTime initialDate = DateTime.now();
     DateTime pickedDate = await showDatePicker(
