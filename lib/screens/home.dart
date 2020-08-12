@@ -1,3 +1,5 @@
+import 'package:enotepad/database/repository.dart';
+import 'package:enotepad/models/note.dart';
 import 'package:enotepad/screens/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +12,28 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+
+  List<Note> listOfNotes = List<Note>();
+  Repository _repository = Repository();
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    getAllNotes();
+  }
+
+  Future getAllNotes() async{
+    listOfNotes.clear();
+    List<Map<String,dynamic>> notes = await _repository.getAllData('Notes');
+    notes.forEach((mapNote) {
+      Note note = Note();
+      listOfNotes.add(note.mapToNote(mapNote));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +83,8 @@ class _HomeState extends State<Home> {
                 ),
                 ListView.builder(
                   itemBuilder: (BuildContext context, int index) =>
-                      NoteTemplate(),
-                  itemCount: 25,
+                      NoteTemplate(listOfNotes[index]),
+                  itemCount: listOfNotes.length,
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),

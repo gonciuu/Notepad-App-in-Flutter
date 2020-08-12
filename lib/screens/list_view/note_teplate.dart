@@ -1,10 +1,12 @@
+import 'package:enotepad/models/note.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
 class NoteTemplate extends StatelessWidget {
 
-
+  final Note note;
+  NoteTemplate(this.note);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class NoteTemplate extends StatelessWidget {
           padding: const EdgeInsets.only(top: 8.0, bottom: 0.0),
           child: ListTile(
             title: Text(
-              "Note Sample Title",
+              note.title,
               style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 20.0,
@@ -25,7 +27,7 @@ class NoteTemplate extends StatelessWidget {
             subtitle: Padding(
               padding: const EdgeInsets.only(top: 5.0),
               child: Text(
-                "Note Sample Subtitle here",
+                note.description,
                 style: TextStyle(
                     fontStyle: FontStyle.normal,
                     fontSize: 17.0,
@@ -58,7 +60,7 @@ class NoteTemplate extends StatelessWidget {
                   height: 11.0,
                 ),
                 Text(
-                  "Oct 27,2019, 9:05",
+                  note.date +', ' + note.time,
                   style: TextStyle(color: Colors.grey[500], fontSize: 12.0),
                 )
               ],

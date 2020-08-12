@@ -329,7 +329,7 @@ class _WriteNoteState extends State<WriteNote> {
       lastDate: DateTime(2100),
     );
     if(pickedDate != null)
-      setState(() =>dateController.text = DateFormat('yyyy-MM-dd').format(pickedDate));
+      setState(() =>dateController.text = DateFormat('MMM dd,yyyy').format(pickedDate));
   }
 
 
