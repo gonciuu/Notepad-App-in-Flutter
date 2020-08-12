@@ -128,7 +128,9 @@ class _WriteNoteState extends State<WriteNote> {
                           color: Colors.white,
                           size: 30.0,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          _pickDate(context);
+                        },
                       ),
                     ),
                   ],
@@ -305,7 +307,17 @@ class _WriteNoteState extends State<WriteNote> {
       setState(() =>timeController.text = t.format(context));
   }
 
-  
+  Future _pickDate(BuildContext context) async {
+    DateTime initialDate = DateTime.now();
+    DateTime pickedDate = await showDatePicker(
+        context: context,
+        initialDate: initialDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if(pickedDate != null)
+      setState(() =>dateController.text = DateFormat('yyyy-MM-dd').format(pickedDate));
+  }
 
 
 
