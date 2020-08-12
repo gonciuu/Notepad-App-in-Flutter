@@ -2,6 +2,7 @@ import 'package:enotepad/constans/text.dart';
 import 'package:enotepad/database/repository.dart';
 import 'package:enotepad/models/note.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class WriteNote extends StatefulWidget {
   @override
@@ -160,7 +161,9 @@ class _WriteNoteState extends State<WriteNote> {
                           color: Colors.white,
                           size: 30.0,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          _pickTime(context);
+                        },
                       ),
                     ),
                   ],
@@ -232,15 +235,7 @@ class _WriteNoteState extends State<WriteNote> {
                             borderRadius: BorderRadius.circular(10.0)),
                         padding: EdgeInsets.symmetric(vertical: 19.0),
                         onPressed: () async {
-                          Note note = Note(
-                              title: titleController.text,
-                              description: descriptionController.text,
-                              date: dateController.text,
-                              time: timeController.text,
-                              isStar: 0,
-                              category: category);
-                          int result = await _repository.insertData("Notes", note.noteToMap());
-                          print(result);
+                         await saveNote();
                         },
                         color: Color.fromARGB(255, 15, 34, 102),
                         child: Text("Add Note",
@@ -256,6 +251,7 @@ class _WriteNoteState extends State<WriteNote> {
     );
   }
 
+  //----set button color and category value on buttons clicked----------------
   void setColor(String bt) {
     setState(() {
       homeButtonColor = Colors.grey[200];
@@ -283,4 +279,34 @@ class _WriteNoteState extends State<WriteNote> {
       category = bt;
     });
   }
+
+  //------save note to database-------
+  Future saveNote() async{
+    Note note = Note(
+        title: titleController.text,
+        description: descriptionController.text,
+        date: dateController.text,
+        time: timeController.text,
+        isStar: 0,
+        category: category);
+    print(timeController.text);
+    int result = await _repository.insertData("Notes", note.noteToMap());
+    print(result);
+  }
+
+
+  Future _pickTime(BuildContext context) async {
+    TimeOfDay time = TimeOfDay.now();
+    TimeOfDay t = await showTimePicker(
+        context: context,
+        initialTime: time
+    );
+    if(t != null)
+      setState(() =>timeController.text = t.format(context));
+  }
+
+  
+
+
+
 }
