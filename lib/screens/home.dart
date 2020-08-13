@@ -84,7 +84,9 @@ class _HomeState extends State<Home> {
                 ),
                 ListView.builder(
                   itemBuilder: (BuildContext context, int index) =>
-                      NoteTemplate(listOfNotes[index]),
+                      NoteTemplate(note: listOfNotes[index],getAllNotes: (){
+                        getAllNotes();
+                      },),
                   itemCount: listOfNotes.length,
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,

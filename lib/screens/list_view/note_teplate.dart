@@ -1,3 +1,4 @@
+import 'package:enotepad/database/repository.dart';
 import 'package:enotepad/models/note.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,10 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 class NoteTemplate extends StatelessWidget {
 
   final Note note;
-  NoteTemplate(this.note);
+  final Function getAllNotes;
+  NoteTemplate({this.note,this.getAllNotes});
+
+  final repository = Repository();
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +80,7 @@ class NoteTemplate extends StatelessWidget {
 
 
   void _showPopup(BuildContext context,Offset offset) async {
-    await showMenu(context: context, position: RelativeRect.fromLTRB(offset.dx,offset.dy,0,0), items:[
+    var selected = await showMenu(context: context, position: RelativeRect.fromLTRB(offset.dx,offset.dy,0,0), items:[
       PopupMenuItem(child: Row(
         children: <Widget>[
           Text('Delete',style: TextStyle(
@@ -93,6 +97,17 @@ class NoteTemplate extends StatelessWidget {
           Icon(OMIcons.edit,color: Colors.grey[900],size: 25.0,)
         ],
       ),value: 'edit')
+
     ]);
+    popUpMenuItemSelectedAction(selected);
+  }
+
+  Future popUpMenuItemSelectedAction(dynamic selected) async{
+    if(selected == 'delete'){
+      await repository.deleteData('Notes', note.id);
+      getAllNotes();
+    }else if(selected == 'edit'){
+      //go to edit note screen
+    }
   }
 }
