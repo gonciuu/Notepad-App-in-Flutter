@@ -102,10 +102,13 @@ class NoteTemplate extends StatelessWidget {
     popUpMenuItemSelectedAction(selected);
   }
 
+
+  //---------run method when op up menu item was choosen---------
   Future popUpMenuItemSelectedAction(dynamic selected) async{
     if(selected == 'delete'){
       await repository.deleteData('Notes', note.id);
       getAllNotes();
+      //get delete note and tun get all notes method again
     }else if(selected == 'edit'){
       //go to edit note screen
     }

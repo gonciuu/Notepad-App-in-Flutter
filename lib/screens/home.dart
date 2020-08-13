@@ -26,6 +26,7 @@ class _HomeState extends State<Home> {
     getAllNotes();
   }
 
+  //get all notes
   Future getAllNotes() async{
     listOfNotes.clear();
     List<Map<String,dynamic>> notes = await _repository.getAllData('Notes');
