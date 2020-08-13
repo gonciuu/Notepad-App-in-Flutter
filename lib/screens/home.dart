@@ -30,9 +30,10 @@ class _HomeState extends State<Home> {
     listOfNotes.clear();
     List<Map<String,dynamic>> notes = await _repository.getAllData('Notes');
     notes.forEach((mapNote) {
-      Note note = Note();
-      listOfNotes.add(note.mapToNote(mapNote));
-    });
+      setState(() {
+        Note note = Note();
+        listOfNotes.add(note.mapToNote(mapNote));
+      });});
   }
 
   @override
@@ -100,8 +101,9 @@ class _HomeState extends State<Home> {
         child: FittedBox(
           child: FloatingActionButton(
             backgroundColor: Color.fromARGB(255, 15, 34, 102),
-            onPressed: () {
-              Navigator.pushNamed(context, "/write_note");
+            onPressed: () async {
+              await Navigator.pushNamed(context, "/write_note");
+              getAllNotes();
             },
             child: Icon(
               Icons.add,

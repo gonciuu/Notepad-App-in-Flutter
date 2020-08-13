@@ -49,7 +49,7 @@ class _WriteNoteState extends State<WriteNote> {
   Widget build(BuildContext context) {
 
     //initial start values
-    if(dateController.text.isEmpty )dateController.text = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    if(dateController.text.isEmpty )dateController.text = DateFormat('MMM dd,yyyy').format(DateTime.now());
     if(timeController.text.isEmpty)timeController.text = TimeOfDay.now().format(context);
 
     return Scaffold(
@@ -248,6 +248,7 @@ class _WriteNoteState extends State<WriteNote> {
                         padding: EdgeInsets.symmetric(vertical: 19.0),
                         onPressed: () async {
                          await saveNote();
+                         Navigator.pop(context);
                         },
                         color: Color.fromARGB(255, 15, 34, 102),
                         child: Text("Add Note",
