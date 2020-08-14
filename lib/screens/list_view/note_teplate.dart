@@ -19,8 +19,9 @@ class NoteTemplate extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 8.0, bottom: 0.0),
           child: ListTile(
-            onTap: (){
-              Navigator.pushNamed(context,"/note_preview",arguments: note.noteToMap());
+            onTap: ()async{
+              await Navigator.pushNamed(context,"/note_preview",arguments: note.noteToMap());
+              getAllNotes();
             },
             title: Text(
               note.title,

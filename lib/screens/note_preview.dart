@@ -1,18 +1,71 @@
+import 'package:enotepad/database/repository.dart';
 import 'package:enotepad/models/note.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
 class NotePreview extends StatelessWidget {
-
-
-
   @override
   Widget build(BuildContext context) {
-    Map<String,dynamic> noteMap = ModalRoute.of(context).settings.arguments;
+    Map<String, dynamic> noteMap = ModalRoute.of(context).settings.arguments;
     Note note = Note();
     note = note.mapToNote(noteMap);
     print(note.description);
+    final Repository _repository = Repository();
+
+    final bottomNav = Align(
+        alignment: Alignment.centerRight,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(20.0),
+                topLeft: Radius.circular(20.0)),
+            color: Colors.grey[300],
+          ),
+          padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Icon(OMIcons.edit, color: Colors.grey[800], size: 36.0),
+              Icon(
+                OMIcons.star,
+                color: Colors.amber,
+                size: 36.0,
+              ),
+              GestureDetector(
+                child:
+                    Icon(OMIcons.delete, color: Colors.grey[800], size: 36.0),
+                onTap: () async {
+                  await showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            title: Text("Delete?",style: TextStyle(fontWeight: FontWeight.w600),),
+                            content: Text("Are  you sure to delete this app?"),
+                            actions: <Widget>[
+
+                              FlatButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Cancel",style: TextStyle(color: Color.fromARGB(255, 15, 34, 102),fontWeight: FontWeight.w600),),
+                              ),
+                              FlatButton(
+                                onPressed: ()async {
+                                  await _repository.deleteData('Notes', note.id);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Delete",style: TextStyle(color: Color.fromARGB(255, 15, 34, 102),fontWeight: FontWeight.w600)),
+                              ),
+                            ],
+                          ));
+
+                },
+              )
+            ],
+          ),
+        ));
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -78,16 +131,17 @@ class NotePreview extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.fromLTRB(25.0, 25.0, 50.0, 10.0),
+                              padding:
+                                  EdgeInsets.fromLTRB(25.0, 25.0, 50.0, 10.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
                                     note.date + ", " + note.time,
                                     style: TextStyle(
-                                      color: Colors.grey[500],
-                                      fontSize: 14.0
-                                    ),
+                                        color: Colors.grey[500],
+                                        fontSize: 14.0),
                                   ),
                                   Row(
                                     children: <Widget>[
@@ -95,7 +149,10 @@ class NotePreview extends StatelessWidget {
                                         OMIcons.event,
                                         color: Colors.grey[400],
                                         size: 28.0,
-                                      ),SizedBox(width: 15.0,),
+                                      ),
+                                      SizedBox(
+                                        width: 15.0,
+                                      ),
                                       Icon(
                                         OMIcons.note,
                                         color: Colors.grey[400],
@@ -123,27 +180,6 @@ class NotePreview extends StatelessWidget {
     );
   }
 
-
-  //--------------bottom navbar note events------------------
-  final bottomNav =  Align(alignment: Alignment.centerRight, child: Container(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.only(topRight: Radius.circular(20.0),topLeft: Radius.circular(20.0)),
-      color: Colors.grey[300],
-    ),
-    padding: EdgeInsets.only(top: 15.0,bottom: 15.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        Icon(OMIcons.edit,color: Colors.grey[800],size: 36.0),
-        Icon(OMIcons.star,color: Colors.amber,size: 36.0,),
-        Icon(OMIcons.delete,color: Colors.grey[800],size: 36.0)
-      ],
-    ),
-  ));
+//--------------bottom navbar note events------------------
 
 }
-
-
-
-
-
