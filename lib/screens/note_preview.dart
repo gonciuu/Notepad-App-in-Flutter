@@ -81,7 +81,9 @@ class NotePreview extends StatelessWidget {
                     size: 32.0,
                     color: Colors.grey[900],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
               ),
               Expanded(
