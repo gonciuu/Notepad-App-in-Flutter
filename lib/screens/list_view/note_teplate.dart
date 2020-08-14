@@ -99,18 +99,19 @@ class NoteTemplate extends StatelessWidget {
       ),value: 'edit')
 
     ]);
-    popUpMenuItemSelectedAction(selected);
+    popUpMenuItemSelectedAction(selected,context);
   }
 
 
   //---------run method when op up menu item was choosen---------
-  Future popUpMenuItemSelectedAction(dynamic selected) async{
+  Future popUpMenuItemSelectedAction(dynamic selected,BuildContext context) async{
     if(selected == 'delete'){
       await repository.deleteData('Notes', note.id);
       getAllNotes();
       //get delete note and tun get all notes method again
     }else if(selected == 'edit'){
       //go to edit note screen
+      await Navigator.pushNamed(context, "/write_note",arguments: note.noteToMap());
     }
   }
 }
