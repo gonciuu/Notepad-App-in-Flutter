@@ -49,7 +49,7 @@ class NotePreview extends StatelessWidget {
                               padding:
                                   EdgeInsets.fromLTRB(20.0, 35.0, 0.0, 10.0),
                               child: Text(
-                                "Sample note title",
+                                note.title,
                                 style: TextStyle(
                                     color: Colors.grey[900],
                                     fontSize: 26.0,
@@ -68,7 +68,7 @@ class NotePreview extends StatelessWidget {
                               padding:
                                   EdgeInsets.fromLTRB(20.0, 0.0, 30.0, 10.0),
                               child: Text(
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus finibus finibus. Maecenas dictum, orci ut dapibus elementum, nisl ipsum lacinia lacus, in viverra dolor velit non dui. Maecenas ac mauris vel ex accumsan tempor et sit amet metus. Integer porttitor vel enim nec interdum. Cras venenatis, ex et laoreet egestas, ligula lectus blandit ex, eu placerat urna urna et felis. Vestibulum sit amet dignissim ligula. Aliquam efficitur libero ac ante lacinia scelerisque.",
+                                note.description,
                                 style: TextStyle(
                                     color: Colors.grey[900],
                                     fontSize: 17.0,
@@ -83,7 +83,7 @@ class NotePreview extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    "Oct 27,2019, 9:05",
+                                    note.date + ", " + note.time,
                                     style: TextStyle(
                                       color: Colors.grey[500],
                                       fontSize: 14.0
