@@ -7,12 +7,57 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 class NotePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    //note from home screen
     Map<String, dynamic> noteMap = ModalRoute.of(context).settings.arguments;
+    //create note object from map
     Note note = Note();
     note = note.mapToNote(noteMap);
-    print(note.description);
+
     final Repository _repository = Repository();
 
+    //----------------show delete alert - confirm dialog---------------------------
+    Future<void> showAlertDialog() async {
+      await showDialog(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text(
+              "Delete?",
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            content: Text("Are you sure to delete this app?"),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  //cancel delete
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "Cancel",
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 15, 34, 102),
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+              FlatButton(
+                onPressed: () async {
+                  //delete note
+                  await _repository.deleteData('Notes', note.id);
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+                child: Text("Delete",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 15, 34, 102),
+                        fontWeight: FontWeight.w600)),
+              ),
+            ],
+          ));
+    }
+    //=================================================================================
+
+
+    //------------------------Bottom nav which contains delete, edit and isStar actions-----------------------
     final bottomNav = Align(
         alignment: Alignment.centerRight,
         child: Container(
@@ -36,35 +81,16 @@ class NotePreview extends StatelessWidget {
                 child:
                     Icon(OMIcons.delete, color: Colors.grey[800], size: 36.0),
                 onTap: () async {
-                  await showDialog(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                            title: Text("Delete?",style: TextStyle(fontWeight: FontWeight.w600),),
-                            content: Text("Are  you sure to delete this app?"),
-                            actions: <Widget>[
-
-                              FlatButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text("Cancel",style: TextStyle(color: Color.fromARGB(255, 15, 34, 102),fontWeight: FontWeight.w600),),
-                              ),
-                              FlatButton(
-                                onPressed: ()async {
-                                  await _repository.deleteData('Notes', note.id);
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                },
-                                child: Text("Delete",style: TextStyle(color: Color.fromARGB(255, 15, 34, 102),fontWeight: FontWeight.w600)),
-                              ),
-                            ],
-                          ));
-
+                   await showAlertDialog();
                 },
               )
             ],
           ),
         ));
+
+    //===========================================================================================================================
+
+
 
     return Scaffold(
       body: SafeArea(
@@ -182,6 +208,5 @@ class NotePreview extends StatelessWidget {
     );
   }
 
-//--------------bottom navbar note events------------------
 
 }
