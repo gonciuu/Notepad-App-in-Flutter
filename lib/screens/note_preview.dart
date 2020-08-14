@@ -1,19 +1,27 @@
+import 'package:enotepad/models/note.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
 class NotePreview extends StatelessWidget {
+
+
+
   @override
   Widget build(BuildContext context) {
+    Map<String,dynamic> noteMap = ModalRoute.of(context).settings.arguments;
+    Note note = Note();
+    note = note.mapToNote(noteMap);
+    print(note.description);
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(top: 22.0),
+          padding: EdgeInsets.only(top: 25.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(left: 20.0),
+                padding: const EdgeInsets.only(left: 15.0),
                 child: IconButton(
                   icon: Icon(
                     Icons.arrow_back_ios,
@@ -25,7 +33,7 @@ class NotePreview extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
-                  margin: EdgeInsets.only(top: 25.0),
+                  margin: EdgeInsets.only(top: 23.0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20.0),
