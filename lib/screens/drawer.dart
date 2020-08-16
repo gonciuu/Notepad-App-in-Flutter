@@ -3,6 +3,8 @@ import 'package:enotepad/models/note.dart';
 import 'package:flutter/material.dart';
 
 class NotesDrawer extends StatefulWidget {
+  final Function getAllNotes;
+  NotesDrawer({this.getAllNotes});
   @override
   _NotesDrawerState createState() => _NotesDrawerState();
 }
@@ -13,7 +15,6 @@ class _NotesDrawerState extends State<NotesDrawer> {
   List<Note> _listOfBusinessNotes = List<Note>();
   List<Note> _listOfHomeNotes = List<Note>();
   List<Note> _listOfOtherNotes = List<Note>();
-
 
   @override
   void initState() {
@@ -40,6 +41,12 @@ class _NotesDrawerState extends State<NotesDrawer> {
   }
 
 
+  Future addNewNote(BuildContext context) async{
+    await Navigator.pushNamed(context,"/write_note");
+    Navigator.pop(context);
+    widget.getAllNotes();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -64,6 +71,9 @@ class _NotesDrawerState extends State<NotesDrawer> {
               height: 7.0,
             ),
             ListTile(
+              onTap: () async{
+                await addNewNote(context);
+              },
               title: Text(
                 "Add new note",
                 style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
