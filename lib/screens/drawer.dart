@@ -88,33 +88,20 @@ class _NotesDrawerState extends State<NotesDrawer> {
                 color: Colors.grey[900],
               ),
             ),
-            if(_listOfBusinessNotes.length>=1) ListTile(
+            for(Note note in _listOfBusinessNotes) ListTile(
               title: Text(
-                _listOfBusinessNotes[0].title,
+                note.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
               ),
               subtitle: Text(
-                _listOfBusinessNotes[0].description,
+                note.description,
                 style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-            ),
-            ListTile(
-              title: Text(
-                "Buy new car",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
-              ),
-              subtitle: Text(
-                "Buy new mercedes car to my business",
-                style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),), Divider(
+            ), Divider(
               color: Colors.grey[400],
             ),
             ListTile(
@@ -128,33 +115,20 @@ class _NotesDrawerState extends State<NotesDrawer> {
                 color: Colors.grey[900],
               ),
             ),
-            ListTile(
+            for(Note note in _listOfHomeNotes)ListTile(
               title: Text(
-                "Veccuming in room",
+                note.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
               ),
               subtitle: Text(
-                "Veccuming in my and my brother room",
+                note.description,
                 style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-            ),
-            ListTile(
-              title: Text(
-                "Clean glasses",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
-              ),
-              subtitle: Text(
-                "Clean glasses in kitchen and living room",
-                style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),), Divider(
+            ), Divider(
               color: Colors.grey[400],
             ),
             ListTile(
@@ -168,33 +142,20 @@ class _NotesDrawerState extends State<NotesDrawer> {
                 color: Colors.grey[900],
               ),
             ),
-            ListTile(
+            for(Note note in _listOfOtherNotes)ListTile(
               title: Text(
-                "Buy new Keyboard",
+               note.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
               ),
               subtitle: Text(
-                "Buy new wireless keyboard to my computer",
+               note.description,
                 style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            ListTile(
-              title: Text(
-                "Make homework",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
-              ),
-              subtitle: Text(
-                "make Math homework on tomorrow",
-                style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),),
           ],
         ),
       ),
