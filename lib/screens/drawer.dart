@@ -1,3 +1,5 @@
+import 'package:enotepad/database/repository.dart';
+import 'package:enotepad/models/note.dart';
 import 'package:flutter/material.dart';
 
 class NotesDrawer extends StatefulWidget {
@@ -6,6 +8,30 @@ class NotesDrawer extends StatefulWidget {
 }
 
 class _NotesDrawerState extends State<NotesDrawer> {
+
+  final Repository _repository = Repository();
+  List<Note> _listOfNotes = List<Note>();
+
+
+  @override
+  void initState() {
+    super.initState();
+    getAllNotes();
+  }
+
+
+  Future getAllNotes() async{
+    _listOfNotes.clear();
+    List<Map<String,dynamic>> mapList= await _repository.getAllData("Notes");
+    mapList.forEach((noteMap) {
+      Note note = Note();
+      note = note.mapToNote(noteMap);
+      _listOfNotes.add(note);
+    });
+    print(_listOfNotes);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
