@@ -11,7 +11,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  //all notes
   List<Note> listOfNotes = List<Note>();
+  //search result notes
   List<Note> searchResult = List<Note>();
 
   Repository _repository = Repository();
@@ -154,10 +156,12 @@ class _HomeState extends State<Home> {
 
     setState(() {});
   }
+  //============================
 
-  void setNotesListToSearchedList(){
-    listOfNotes.forEach((note) =>setState(() =>searchResult.add(note)));
-  }
+
+  //------set all notes values to searchedlist-------
+  void setNotesListToSearchedList() => listOfNotes.forEach((note) =>setState(() =>searchResult.add(note)));
+
 
 
 }
