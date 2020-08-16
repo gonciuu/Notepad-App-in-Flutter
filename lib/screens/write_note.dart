@@ -52,13 +52,6 @@ class _WriteNoteState extends State<WriteNote> {
   @override
   Widget build(BuildContext context) {
 
-    if(ModalRoute.of(context).settings.arguments !=null){
-      Map<String,dynamic> noteMap = ModalRoute.of(context).settings.arguments;
-      note = Note();
-      note = note.mapToNote(noteMap);
-      print("tak");
-    }else print("nie");
-
 
 
     //initial start values
