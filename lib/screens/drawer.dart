@@ -10,7 +10,9 @@ class NotesDrawer extends StatefulWidget {
 class _NotesDrawerState extends State<NotesDrawer> {
 
   final Repository _repository = Repository();
-  List<Note> _listOfNotes = List<Note>();
+  List<Note> _listOfBusinessNotes = List<Note>();
+  List<Note> _listOfHomeNotes = List<Note>();
+  List<Note> _listOfOtherNotes = List<Note>();
 
 
   @override
@@ -21,14 +23,20 @@ class _NotesDrawerState extends State<NotesDrawer> {
 
 
   Future getAllNotes() async{
-    _listOfNotes.clear();
+    _listOfBusinessNotes.clear();
+    _listOfHomeNotes.clear();
+    _listOfOtherNotes.clear();
     List<Map<String,dynamic>> mapList= await _repository.getAllData("Notes");
-    mapList.forEach((noteMap) {
-      Note note = Note();
-      note = note.mapToNote(noteMap);
-      _listOfNotes.add(note);
-    });
-    print(_listOfNotes);
+    mapList.forEach((noteMap) =>
+      setState(() {
+        Note note = Note();
+        note = note.mapToNote(noteMap);
+        switch(note.category){
+          case "home": _listOfHomeNotes.add(note);break;
+          case "business":_listOfBusinessNotes.add(note);break;
+          case "other":_listOfOtherNotes.add(note);break;
+        }
+      }));
   }
 
 
@@ -80,15 +88,15 @@ class _NotesDrawerState extends State<NotesDrawer> {
                 color: Colors.grey[900],
               ),
             ),
-            ListTile(
+            if(_listOfBusinessNotes.length>=1) ListTile(
               title: Text(
-                "Make a Contract",
+                _listOfBusinessNotes[0].title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
               ),
               subtitle: Text(
-                "Make a contract with my parents",
+                _listOfBusinessNotes[0].description,
                 style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
