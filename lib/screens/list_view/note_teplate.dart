@@ -112,6 +112,7 @@ class NoteTemplate extends StatelessWidget {
     }else if(selected == 'edit'){
       //go to edit note screen
       await Navigator.pushNamed(context, "/edit_note",arguments: note.noteToMap());
+      getAllNotes();
     }
   }
 }

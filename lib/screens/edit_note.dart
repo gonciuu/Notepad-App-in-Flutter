@@ -12,11 +12,11 @@ class EditNote extends StatefulWidget {
 class _EditNoteState extends State<EditNote> {
 
   Note note = Note();
+
   //-------go to next formfield on enter clicked----------
   final descriptionFocus = FocusNode();
   final dateFocus = FocusNode();
   final timeFocus = FocusNode();
-
   //===================================================
 
   //-----------button colors-----------------
@@ -26,7 +26,6 @@ class _EditNoteState extends State<EditNote> {
   Color businessButtonTextColor = Colors.grey[900];
   Color otherButtonColor = Colors.grey[200];
   Color otherButtonTextColor = Colors.grey[900];
-
   //==========================================
 
   //--------------------handle textfields text------------------------
@@ -34,7 +33,7 @@ class _EditNoteState extends State<EditNote> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController timeController = TextEditingController();
-  String category = 'home';
+  String category;
   //===================================================================
 
 
@@ -50,11 +49,14 @@ class _EditNoteState extends State<EditNote> {
   @override
   Widget build(BuildContext context) {
 
+    note = note.mapToNote(ModalRoute.of(context).settings.arguments);
+    //initial note values
+    titleController.text = titleController.text.isEmpty ? note.title : titleController.text;
+    descriptionController.text = descriptionController.text.isEmpty ? note.description : descriptionController.text;
+    dateController.text = dateController.text.isEmpty ? note.date : dateController.text;
+    timeController.text = timeController.text.isEmpty ? note.time : timeController.text;
+    category = category == null ? note.category : category;
 
-
-    //initial start values
-    if(dateController.text.isEmpty )dateController.text = DateFormat('MMM dd,yyyy').format(DateTime.now());
-    if(timeController.text.isEmpty)timeController.text = TimeOfDay.now().format(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -68,7 +70,7 @@ class _EditNoteState extends State<EditNote> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text("Add New Note",
+                        Text("Update Note",
                             style: TextStyle(
                                 color: Colors.grey[900],
                                 fontSize: 28.0,
@@ -255,7 +257,7 @@ class _EditNoteState extends State<EditNote> {
                               Navigator.pop(context);
                             },
                             color: Color.fromARGB(255, 15, 34, 102),
-                            child: Text("Add Note",
+                            child: Text("Update Note",
                                 style:
                                 TextStyle(color: Colors.white, fontSize: 22.0)),
                           ),
