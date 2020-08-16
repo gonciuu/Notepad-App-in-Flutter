@@ -12,9 +12,12 @@ class NotesDrawer extends StatefulWidget {
 class _NotesDrawerState extends State<NotesDrawer> {
 
   final Repository _repository = Repository();
+
+  //----------list of notes by category-----------
   List<Note> _listOfBusinessNotes = List<Note>();
   List<Note> _listOfHomeNotes = List<Note>();
   List<Note> _listOfOtherNotes = List<Note>();
+  //==============================================
 
   @override
   void initState() {
@@ -23,6 +26,7 @@ class _NotesDrawerState extends State<NotesDrawer> {
   }
 
 
+  //-----------get all notes and add it to good list-------------
   Future getAllNotes() async{
     _listOfBusinessNotes.clear();
     _listOfHomeNotes.clear();
@@ -39,14 +43,17 @@ class _NotesDrawerState extends State<NotesDrawer> {
         }
       }));
   }
+  //==============================================================
 
 
+  //------------------add new note on listtile clicked and get all notes after that--------------------
   Future addNewNote(BuildContext context) async{
     await Navigator.pushNamed(context,"/write_note");
     Navigator.pop(context);
     widget.getAllNotes();
   }
-  
+  //===================================================================================================
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
