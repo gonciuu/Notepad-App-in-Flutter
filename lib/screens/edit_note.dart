@@ -50,13 +50,14 @@ class _EditNoteState extends State<EditNote> {
   Widget build(BuildContext context) {
 
     note = note.mapToNote(ModalRoute.of(context).settings.arguments);
-    //initial note values
+    //------------------------initial note values---------------------------
     titleController.text = titleController.text.isEmpty ? note.title : titleController.text;
     descriptionController.text = descriptionController.text.isEmpty ? note.description : descriptionController.text;
     dateController.text = dateController.text.isEmpty ? note.date : dateController.text;
     timeController.text = timeController.text.isEmpty ? note.time : timeController.text;
     category = category == null ? note.category : category;
-
+    setColor(category);
+    //-----------------------------------------------------------------------
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -253,7 +254,7 @@ class _EditNoteState extends State<EditNote> {
                                 borderRadius: BorderRadius.circular(10.0)),
                             padding: EdgeInsets.symmetric(vertical: 19.0),
                             onPressed: () async {
-                              await saveNote();
+                              await updateNote();
                               Navigator.pop(context);
                             },
                             color: Color.fromARGB(255, 15, 34, 102),
@@ -299,17 +300,14 @@ class _EditNoteState extends State<EditNote> {
     });
   }
 
-  //------save note to database-------
-  Future saveNote() async{
-    Note note = Note(
-        title: titleController.text,
-        description: descriptionController.text,
-        date: dateController.text,
-        time: timeController.text,
-        isStar: 0,
-        category: category);
-    print(timeController.text);
-    int result = await _repository.insertData("Notes", note.noteToMap());
+  //------update note to database-------
+  Future updateNote() async{
+    note.title = titleController.text;
+    note.description = descriptionController.text;
+    note.date = dateController.text;
+    note.time = timeController.text;
+    note.category = category;
+    int result = await _repository.updateData("Notes", note.noteToMap());
     print(result);
   }
 
