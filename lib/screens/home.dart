@@ -31,6 +31,8 @@ class _HomeState extends State<Home> {
 
   //get all notes
   Future getAllNotes() async {
+    searchController.clear();
+    searchResult.clear();
     listOfNotes.clear();
     List<Map<String, dynamic>> notes = await _repository.getAllData('Notes');
     notes.forEach((mapNote) {
@@ -44,6 +46,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       key: _scaffoldKey,
       drawer: NotesDrawer(getAllNotes: (){
@@ -129,7 +132,6 @@ class _HomeState extends State<Home> {
             backgroundColor: Color.fromARGB(255, 15, 34, 102),
             onPressed: () async {
               await Navigator.pushNamed(context, "/write_note");
-              searchController.clear();
               getAllNotes();
             },
             child: Icon(
