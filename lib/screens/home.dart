@@ -24,6 +24,9 @@ class _HomeState extends State<Home> {
     getAllNotes();
   }
 
+  final searchController = TextEditingController();
+
+
   //get all notes
   Future getAllNotes() async {
     listOfNotes.clear();
@@ -34,6 +37,7 @@ class _HomeState extends State<Home> {
         listOfNotes.add(note.mapToNote(mapNote));
       });
     });
+    setNotesListToSearchedList();
   }
 
   @override
@@ -70,6 +74,7 @@ class _HomeState extends State<Home> {
                     ),SizedBox(width: 30.0,),
                     Flexible(
                       child: TextField(
+                        controller: searchController,
                         cursorColor: Colors.grey[900],
                         decoration: InputDecoration(
                             border: InputBorder.none,
@@ -86,6 +91,7 @@ class _HomeState extends State<Home> {
                               color: Colors.red[400],
                               iconSize: 32.0,
                             )),
+                        onChanged: (str) => onSearchTextChanged(str),
                       ),
                     ),
                   ],
@@ -96,12 +102,12 @@ class _HomeState extends State<Home> {
                 ListView.builder(
                   itemBuilder: (BuildContext context, int index) =>
                       NoteTemplate(
-                    note: listOfNotes[index],
+                    note: searchResult[index],
                     getAllNotes: () {
                       getAllNotes();
                     },
                   ),
-                  itemCount: listOfNotes.length,
+                  itemCount: searchResult.length,
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
@@ -119,6 +125,7 @@ class _HomeState extends State<Home> {
             backgroundColor: Color.fromARGB(255, 15, 34, 102),
             onPressed: () async {
               await Navigator.pushNamed(context, "/write_note");
+              searchController.clear();
               getAllNotes();
             },
             child: Icon(
@@ -132,16 +139,26 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void onSearch(String searched) {
+  //-----search in list-------
+  onSearchTextChanged(String text) async {
     searchResult.clear();
-    searched.isEmpty
-        ? setState(() {})
-        : listOfNotes.forEach((note) {
-            if (note.title.contains(searched) ||
-                note.description.contains(searched)) {
-              searchResult.add(note);
-            }
-          });
+    if (text.isEmpty) {
+      setNotesListToSearchedList();
+      return;
+    }
+
+    listOfNotes.forEach((userDetail) {
+      if (userDetail.title.contains(text) || userDetail.description.contains(text))
+        searchResult.add(userDetail);
+    });
+
     setState(() {});
   }
+
+  void setNotesListToSearchedList(){
+    listOfNotes.forEach((note) =>setState(() =>searchResult.add(note)));
+  }
+
+
 }
+  //==========================
