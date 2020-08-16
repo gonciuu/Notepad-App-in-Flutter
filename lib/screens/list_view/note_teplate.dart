@@ -111,7 +111,7 @@ class NoteTemplate extends StatelessWidget {
       //get delete note and tun get all notes method again
     }else if(selected == 'edit'){
       //go to edit note screen
-      //await Navigator.pushNamed(context, "/write_note",arguments: note.noteToMap());
+      await Navigator.pushNamed(context, "/edit_note",arguments: note.noteToMap());
     }
   }
 }
