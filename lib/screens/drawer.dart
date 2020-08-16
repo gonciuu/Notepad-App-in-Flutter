@@ -1,11 +1,59 @@
+import 'package:enotepad/database/repository.dart';
+import 'package:enotepad/models/note.dart';
 import 'package:flutter/material.dart';
 
 class NotesDrawer extends StatefulWidget {
+  final Function getAllNotes;
+  NotesDrawer({this.getAllNotes});
   @override
   _NotesDrawerState createState() => _NotesDrawerState();
 }
 
 class _NotesDrawerState extends State<NotesDrawer> {
+
+  final Repository _repository = Repository();
+
+  //----------list of notes by category-----------
+  List<Note> _listOfBusinessNotes = List<Note>();
+  List<Note> _listOfHomeNotes = List<Note>();
+  List<Note> _listOfOtherNotes = List<Note>();
+  //==============================================
+
+  @override
+  void initState() {
+    super.initState();
+    getAllNotes();
+  }
+
+
+  //-----------get all notes and add it to good list-------------
+  Future getAllNotes() async{
+    _listOfBusinessNotes.clear();
+    _listOfHomeNotes.clear();
+    _listOfOtherNotes.clear();
+    List<Map<String,dynamic>> mapList= await _repository.getAllData("Notes");
+    mapList.forEach((noteMap) =>
+      setState(() {
+        Note note = Note();
+        note = note.mapToNote(noteMap);
+        switch(note.category){
+          case "home": _listOfHomeNotes.add(note);break;
+          case "business":_listOfBusinessNotes.add(note);break;
+          case "other":_listOfOtherNotes.add(note);break;
+        }
+      }));
+  }
+  //==============================================================
+
+
+  //------------------add new note on listtile clicked and get all notes after that--------------------
+  Future addNewNote(BuildContext context) async{
+    await Navigator.pushNamed(context,"/write_note");
+    Navigator.pop(context);
+    widget.getAllNotes();
+  }
+  //===================================================================================================
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -30,6 +78,9 @@ class _NotesDrawerState extends State<NotesDrawer> {
               height: 7.0,
             ),
             ListTile(
+              onTap: () async{
+                await addNewNote(context);
+              },
               title: Text(
                 "Add new note",
                 style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
@@ -54,33 +105,20 @@ class _NotesDrawerState extends State<NotesDrawer> {
                 color: Colors.grey[900],
               ),
             ),
-            ListTile(
+            for(Note note in _listOfBusinessNotes) ListTile(
               title: Text(
-                "Make a Contract",
+                note.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
               ),
               subtitle: Text(
-                "Make a contract with my parents",
+                note.description,
                 style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-            ),
-            ListTile(
-              title: Text(
-                "Buy new car",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
-              ),
-              subtitle: Text(
-                "Buy new mercedes car to my business",
-                style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),), Divider(
+            ), Divider(
               color: Colors.grey[400],
             ),
             ListTile(
@@ -94,33 +132,20 @@ class _NotesDrawerState extends State<NotesDrawer> {
                 color: Colors.grey[900],
               ),
             ),
-            ListTile(
+            for(Note note in _listOfHomeNotes)ListTile(
               title: Text(
-                "Veccuming in room",
+                note.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
               ),
               subtitle: Text(
-                "Veccuming in my and my brother room",
+                note.description,
                 style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-            ),
-            ListTile(
-              title: Text(
-                "Clean glasses",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
-              ),
-              subtitle: Text(
-                "Clean glasses in kitchen and living room",
-                style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),), Divider(
+            ), Divider(
               color: Colors.grey[400],
             ),
             ListTile(
@@ -134,33 +159,20 @@ class _NotesDrawerState extends State<NotesDrawer> {
                 color: Colors.grey[900],
               ),
             ),
-            ListTile(
+            for(Note note in _listOfOtherNotes)ListTile(
               title: Text(
-                "Buy new Keyboard",
+               note.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
               ),
               subtitle: Text(
-                "Buy new wireless keyboard to my computer",
+               note.description,
                 style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            ListTile(
-              title: Text(
-                "Make homework",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
-              ),
-              subtitle: Text(
-                "make Math homework on tomorrow",
-                style: TextStyle(fontSize: 15.0, color: Colors.grey[500]),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),),
           ],
         ),
       ),

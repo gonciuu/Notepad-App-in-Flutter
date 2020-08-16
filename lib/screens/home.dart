@@ -41,7 +41,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: NotesDrawer(),
+      drawer: NotesDrawer(getAllNotes: (){
+        getAllNotes();
+      },),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
