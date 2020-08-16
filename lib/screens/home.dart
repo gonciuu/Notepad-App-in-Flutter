@@ -11,14 +11,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
-
   List<Note> listOfNotes = List<Note>();
+  List<Note> searchResult = List<Note>();
+
   Repository _repository = Repository();
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-
 
   @override
   void initState() {
@@ -27,14 +25,15 @@ class _HomeState extends State<Home> {
   }
 
   //get all notes
-  Future getAllNotes() async{
+  Future getAllNotes() async {
     listOfNotes.clear();
-    List<Map<String,dynamic>> notes = await _repository.getAllData('Notes');
+    List<Map<String, dynamic>> notes = await _repository.getAllData('Notes');
     notes.forEach((mapNote) {
       setState(() {
         Note note = Note();
         listOfNotes.add(note.mapToNote(mapNote));
-      });});
+      });
+    });
   }
 
   @override
@@ -61,22 +60,33 @@ class _HomeState extends State<Home> {
                       },
                       color: Colors.red[400],
                       iconSize: 32.0,
-                    ),
+                    ),SizedBox(width: 70.0,),
                     Text(
                       "My Notes",
                       style: TextStyle(
                           fontSize: 28.0,
                           fontWeight: FontWeight.w700,
                           color: Colors.grey[900]),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        color: Colors.grey[900],
+                    ),SizedBox(width: 30.0,),
+                    Flexible(
+                      child: TextField(
+                        cursorColor: Colors.grey[900],
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                Icons.search,
+                                color: Colors.grey[900],
+                              ),
+                              onPressed: () {},
+                              color: Colors.red[400],
+                              iconSize: 32.0,
+                            )),
                       ),
-                      onPressed: () {},
-                      color: Colors.red[400],
-                      iconSize: 32.0,
                     ),
                   ],
                 ),
@@ -85,9 +95,12 @@ class _HomeState extends State<Home> {
                 ),
                 ListView.builder(
                   itemBuilder: (BuildContext context, int index) =>
-                      NoteTemplate(note: listOfNotes[index],getAllNotes: (){
-                        getAllNotes();
-                      },),
+                      NoteTemplate(
+                    note: listOfNotes[index],
+                    getAllNotes: () {
+                      getAllNotes();
+                    },
+                  ),
                   itemCount: listOfNotes.length,
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
@@ -117,5 +130,18 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  void onSearch(String searched) {
+    searchResult.clear();
+    searched.isEmpty
+        ? setState(() {})
+        : listOfNotes.forEach((note) {
+            if (note.title.contains(searched) ||
+                note.description.contains(searched)) {
+              searchResult.add(note);
+            }
+          });
+    setState(() {});
   }
 }
