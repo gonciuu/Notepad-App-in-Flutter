@@ -4,17 +4,38 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
-class NotePreview extends StatelessWidget {
+class NotePreview extends StatefulWidget {
+  @override
+  _NotePreviewState createState() => _NotePreviewState();
+}
+
+class _NotePreviewState extends State<NotePreview> {
+  Note note;
+
   @override
   Widget build(BuildContext context) {
-
     //note from home screen
-    Map<String, dynamic> noteMap = ModalRoute.of(context).settings.arguments;
-    //create note object from map
-    Note note = Note();
-    note = note.mapToNote(noteMap);
+    if(note == null){
+      print("wykonalo sie");
+      Map<String, dynamic> noteMap = ModalRoute.of(context).settings.arguments;
+      //create note object from map
+      note = Note();
+      note = note.mapToNote(noteMap);
+    }
 
     final Repository _repository = Repository();
+
+    //------------update note------------------
+    Future updateNote() async{
+      await Navigator.pushNamed(context,"/edit_note",arguments: note.noteToMap());
+      Map<String,dynamic> noteMap = await _repository.getById("Notes", note.id);
+      setState(() =>note = note.mapToNote(noteMap));
+      print(note.title);
+    }
+    //==========================================
+
+
+
 
     //----------------show delete alert - confirm dialog---------------------------
     Future<void> showAlertDialog() async {
@@ -71,7 +92,9 @@ class NotePreview extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Icon(OMIcons.edit, color: Colors.grey[800], size: 36.0),
+              GestureDetector(child: Icon(OMIcons.edit, color: Colors.grey[800], size: 36.0),onTap: ()async{
+                 updateNote();
+              },),
               Icon(
                 OMIcons.star,
                 color: Colors.amber,
@@ -207,6 +230,4 @@ class NotePreview extends StatelessWidget {
       ),
     );
   }
-
-
 }

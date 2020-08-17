@@ -35,4 +35,10 @@ class Repository{
     return await db.query(table);
   }
 
+  Future<Map<String,dynamic>> getById(String table,int id) async{
+    Database db = await database;
+    List<Map<String,dynamic>> list =  await db.query(table,where: "id=?",whereArgs: [id]);
+    if(list.length > 0) return list.first; else return null;
+  }
+
 }
