@@ -104,6 +104,9 @@ class _NotesDrawerState extends State<NotesDrawer> {
                 size: 28.0,
                 color: Colors.grey[900],
               ),
+              onTap:(){
+                Navigator.pushNamed(context, "/notes_by_category");
+              } ,
             ),
             for(Note note in _listOfBusinessNotes) ListTile(
               title: Text(
