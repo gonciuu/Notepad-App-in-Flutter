@@ -35,14 +35,20 @@ class _HomeState extends State<Home> {
     searchResult.clear();
     listOfNotes.clear();
     List<Map<String, dynamic>> notes = await _repository.getAllData('Notes');
-    notes.forEach((mapNote) {
-      setState(() {
-        Note note = Note();
-        listOfNotes.add(note.mapToNote(mapNote));
+    if(notes.length>0) {
+      notes.forEach((mapNote) {
+        setState(() {
+          Note note = Note();
+          listOfNotes.add(note.mapToNote(mapNote));
+        });
       });
-    });
-    listOfNotes.sort((note1,note2)=> note2.isStar.compareTo(note1.isStar));
-    setNotesListToSearchedList();
+
+      listOfNotes.sort((note1,note2)=> note2.isStar.compareTo(note1.isStar));
+      setNotesListToSearchedList();
+      print("dodano notatki");
+    }else{
+      setState((){});
+    }
   }
   //=============================================================
 
