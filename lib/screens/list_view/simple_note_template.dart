@@ -1,4 +1,5 @@
 
+import 'package:enotepad/database/repository.dart';
 import 'package:enotepad/models/note.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,8 @@ class SimpleNoteTemplate extends StatefulWidget {
 }
 
 class _SimpleNoteTemplateState extends State<SimpleNoteTemplate> {
+
+  final Repository _repository = Repository();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,10 +45,26 @@ class _SimpleNoteTemplateState extends State<SimpleNoteTemplate> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Icon(
-                  Icons.star_border,
-                  color: Colors.grey[700],
-                  size: 26.0,
+                widget.note.isStar == 0 ? GestureDetector(
+                  onTap: (){
+                    setState(()=>widget.note.isStar=1);
+                    _repository.updateData("Notes", widget.note.noteToMap());
+                  },
+                  child: Icon(
+                    Icons.star_border,
+                    color: Colors.grey[700],
+                    size: 26.0,
+                  ),
+                ):GestureDetector(
+                  onTap: (){
+                    setState(()=>widget.note.isStar=0);
+                    _repository.updateData("Notes", widget.note.noteToMap());
+                  },
+                  child: Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                    size: 26.0,
+                  ),
                 ),
                 SizedBox(
                   height: 11.0,

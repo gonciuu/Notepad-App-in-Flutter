@@ -104,12 +104,13 @@ class _NotesDrawerState extends State<NotesDrawer> {
                 size: 28.0,
                 color: Colors.grey[900],
               ),
-              onTap:(){
+              onTap:()async{
                 List<Map<String,dynamic>> listOfNotesMap = List<Map<String,dynamic>>();
                 _listOfBusinessNotes.forEach((note) {
                   listOfNotesMap.add(note.noteToMap());
                 });
-                Navigator.pushNamed(context, "/notes_by_category",arguments: listOfNotesMap);
+                await Navigator.pushNamed(context, "/notes_by_category",arguments: listOfNotesMap);
+                getAllNotes();
               } ,
             ),
             for(Note note in _listOfBusinessNotes) ListTile(
