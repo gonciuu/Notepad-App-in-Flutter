@@ -64,6 +64,7 @@ class _NoteTemplateState extends State<NoteTemplate> {
                       ),
                       onTap: (){
                         setState(() => widget.note.isStar = 1);
+                        repository.updateData("Notes", widget.note.noteToMap());
                       },
                     ) : GestureDetector(
                       child: Icon(
@@ -73,6 +74,7 @@ class _NoteTemplateState extends State<NoteTemplate> {
                       ),
                       onTap: (){
                         setState(() => widget.note.isStar = 0);
+                        repository.updateData("Notes", widget.note.noteToMap());
                       },
                     ),
                     SizedBox(

@@ -15,7 +15,7 @@ class _NotePreviewState extends State<NotePreview> {
   @override
   Widget build(BuildContext context) {
     //note from home screen
-    if(note == null){
+    if (note == null) {
       print("wykonalo sie");
       Map<String, dynamic> noteMap = ModalRoute.of(context).settings.arguments;
       //create note object from map
@@ -26,57 +26,55 @@ class _NotePreviewState extends State<NotePreview> {
     final Repository _repository = Repository();
 
     //------------update note------------------
-    Future updateNote() async{
-      await Navigator.pushNamed(context,"/edit_note",arguments: note.noteToMap());
-      Map<String,dynamic> noteMap = await _repository.getById("Notes", note.id);
-      setState(() =>note = note.mapToNote(noteMap));
+    Future updateNote() async {
+      await Navigator.pushNamed(context, "/edit_note",
+          arguments: note.noteToMap());
+      Map<String, dynamic> noteMap =
+          await _repository.getById("Notes", note.id);
+      setState(() => note = note.mapToNote(noteMap));
       print(note.title);
     }
     //==========================================
-
-
-
 
     //----------------show delete alert - confirm dialog---------------------------
     Future<void> showAlertDialog() async {
       await showDialog(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-            title: Text(
-              "Delete?",
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ),
-            content: Text("Are you sure to delete this app?"),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  //cancel delete
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  "Cancel",
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 15, 34, 102),
-                      fontWeight: FontWeight.w600),
+                title: Text(
+                  "Delete?",
+                  style: TextStyle(fontWeight: FontWeight.w600),
                 ),
-              ),
-              FlatButton(
-                onPressed: () async {
-                  //delete note
-                  await _repository.deleteData('Notes', note.id);
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-                child: Text("Delete",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 15, 34, 102),
-                        fontWeight: FontWeight.w600)),
-              ),
-            ],
-          ));
+                content: Text("Are you sure to delete this app?"),
+                actions: <Widget>[
+                  FlatButton(
+                    onPressed: () {
+                      //cancel delete
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Cancel",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 15, 34, 102),
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  FlatButton(
+                    onPressed: () async {
+                      //delete note
+                      await _repository.deleteData('Notes', note.id);
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    },
+                    child: Text("Delete",
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 15, 34, 102),
+                            fontWeight: FontWeight.w600)),
+                  ),
+                ],
+              ));
     }
     //=================================================================================
-
 
     //------------------------Bottom nav which contains delete, edit and isStar actions-----------------------
     final bottomNav = Align(
@@ -92,19 +90,31 @@ class _NotePreviewState extends State<NotePreview> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              GestureDetector(child: Icon(OMIcons.edit, color: Colors.grey[800], size: 36.0),onTap: ()async{
-                 updateNote();
-              },),
-              Icon(
-                OMIcons.star,
-                color: Colors.amber,
-                size: 36.0,
+              GestureDetector(
+                child: Icon(OMIcons.edit, color: Colors.grey[800], size: 36.0),
+                onTap: () async {
+                  updateNote();
+                },
+              ),
+              note.isStar == 0 ? GestureDetector(
+                onTap: (){setState(()=>note.isStar = 1);_repository.updateData("Notes", note.noteToMap());},
+                child: Icon(
+                        Icons.star_border,
+                        size: 36.0,
+                        color: Colors.grey[900],),
+              ) : GestureDetector(
+                onTap: (){setState(()=> note.isStar=0);_repository.updateData("Notes", note.noteToMap());},
+                child: Icon(
+                        OMIcons.star,
+                        color: Colors.amber,
+                        size: 36.0,
+                      ),
               ),
               GestureDetector(
                 child:
                     Icon(OMIcons.delete, color: Colors.grey[800], size: 36.0),
                 onTap: () async {
-                   await showAlertDialog();
+                  await showAlertDialog();
                 },
               )
             ],
@@ -112,8 +122,6 @@ class _NotePreviewState extends State<NotePreview> {
         ));
 
     //===========================================================================================================================
-
-
 
     return Scaffold(
       body: SafeArea(
