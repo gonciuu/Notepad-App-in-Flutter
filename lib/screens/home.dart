@@ -41,6 +41,7 @@ class _HomeState extends State<Home> {
         listOfNotes.add(note.mapToNote(mapNote));
       });
     });
+    listOfNotes.sort((note1,note2)=> note2.isStar.compareTo(note1.isStar));
     setNotesListToSearchedList();
   }
 
@@ -156,6 +157,7 @@ class _HomeState extends State<Home> {
     listOfNotes.forEach((userDetail) {
       if (userDetail.title.contains(text) || userDetail.description.contains(text))
         searchResult.add(userDetail);
+      searchResult.sort((note1,note2)=> note2.isStar.compareTo(note1.isStar));
     });
 
     setState(() {});
