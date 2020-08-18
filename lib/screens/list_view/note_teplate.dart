@@ -4,12 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
-class NoteTemplate extends StatelessWidget {
+class NoteTemplate extends StatefulWidget {
 
   final Note note;
   final Function getAllNotes;
   NoteTemplate({this.note,this.getAllNotes});
 
+  @override
+  _NoteTemplateState createState() => _NoteTemplateState();
+}
+
+class _NoteTemplateState extends State<NoteTemplate> {
   final repository = Repository();
 
   @override
@@ -20,11 +25,11 @@ class NoteTemplate extends StatelessWidget {
           padding: const EdgeInsets.only(top: 8.0, bottom: 0.0),
           child: ListTile(
             onTap: ()async{
-              await Navigator.pushNamed(context,"/note_preview",arguments: note.noteToMap());
-              getAllNotes();
+              await Navigator.pushNamed(context,"/note_preview",arguments: widget.note.noteToMap());
+              widget.getAllNotes();
             },
             title: Text(
-              note.title,
+              widget.note.title,
               style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 20.0,
@@ -35,7 +40,7 @@ class NoteTemplate extends StatelessWidget {
             subtitle: Padding(
               padding: const EdgeInsets.only(top: 5.0),
               child: Text(
-                note.description,
+                widget.note.description,
                 style: TextStyle(
                     fontStyle: FontStyle.normal,
                     fontSize: 17.0,
@@ -51,10 +56,24 @@ class NoteTemplate extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Icon(
-                      Icons.star_border,
-                      color: Colors.grey[700],
-                      size: 26.0,
+                    widget.note.isStar == 0 ? GestureDetector(
+                      child: Icon(
+                        Icons.star_border,
+                        color: Colors.grey[700],
+                        size: 26.0,
+                      ),
+                      onTap: (){
+                        setState(() => widget.note.isStar = 1);
+                      },
+                    ) : GestureDetector(
+                      child: Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 26.0,
+                      ),
+                      onTap: (){
+                        setState(() => widget.note.isStar = 0);
+                      },
                     ),
                     SizedBox(
                       width: 3.0,
@@ -68,7 +87,7 @@ class NoteTemplate extends StatelessWidget {
                   height: 11.0,
                 ),
                 Text(
-                  note.date +', ' + note.time,
+                  widget.note.date +', ' + widget.note.time,
                   style: TextStyle(color: Colors.grey[500], fontSize: 12.0),
                 )
               ],
@@ -81,7 +100,6 @@ class NoteTemplate extends StatelessWidget {
       ],
     );
   }
-
 
   void _showPopup(BuildContext context,Offset offset) async {
     var selected = await showMenu(context: context, position: RelativeRect.fromLTRB(offset.dx,offset.dy,0,0), items:[
@@ -106,17 +124,15 @@ class NoteTemplate extends StatelessWidget {
     popUpMenuItemSelectedAction(selected,context);
   }
 
-
-  //---------run method when op up menu item was choosen---------
   Future popUpMenuItemSelectedAction(dynamic selected,BuildContext context) async{
     if(selected == 'delete'){
-      await repository.deleteData('Notes', note.id);
-      getAllNotes();
+      await repository.deleteData('Notes', widget.note.id);
+      widget.getAllNotes();
       //get delete note and tun get all notes method again
     }else if(selected == 'edit'){
       //go to edit note screen
-      await Navigator.pushNamed(context, "/edit_note",arguments: note.noteToMap());
-      getAllNotes();
+      await Navigator.pushNamed(context, "/edit_note",arguments: widget.note.noteToMap());
+      widget.getAllNotes();
     }
   }
 }
