@@ -97,13 +97,21 @@ class _NotePreviewState extends State<NotePreview> {
                 },
               ),
               note.isStar == 0 ? GestureDetector(
-                onTap: (){setState(()=>note.isStar = 1);_repository.updateData("Notes", note.noteToMap());},
+                //star note
+                onTap: (){
+                    setState(()=>note.isStar = 1);
+                    _repository.updateData("Notes", note.noteToMap());
+                  },
                 child: Icon(
                         Icons.star_border,
                         size: 36.0,
                         color: Colors.grey[900],),
               ) : GestureDetector(
-                onTap: (){setState(()=> note.isStar=0);_repository.updateData("Notes", note.noteToMap());},
+                //unstar note
+                onTap: (){
+                    setState(()=> note.isStar=0);
+                    _repository.updateData("Notes", note.noteToMap());
+                  },
                 child: Icon(
                         OMIcons.star,
                         color: Colors.amber,

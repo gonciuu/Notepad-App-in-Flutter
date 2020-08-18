@@ -6,8 +6,8 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 
 class NoteTemplate extends StatefulWidget {
 
-  final Note note;
-  final Function getAllNotes;
+  final Note note;//note to template
+  final Function getAllNotes;//refresh state
   NoteTemplate({this.note,this.getAllNotes});
 
   @override
@@ -63,6 +63,7 @@ class _NoteTemplateState extends State<NoteTemplate> {
                         size: 26.0,
                       ),
                       onTap: (){
+                        //star note
                         setState(() => widget.note.isStar = 1);
                         repository.updateData("Notes", widget.note.noteToMap());
                       },
@@ -73,6 +74,7 @@ class _NoteTemplateState extends State<NoteTemplate> {
                         size: 26.0,
                       ),
                       onTap: (){
+                        //unstar note
                         setState(() => widget.note.isStar = 0);
                         repository.updateData("Notes", widget.note.noteToMap());
                       },
@@ -103,6 +105,8 @@ class _NoteTemplateState extends State<NoteTemplate> {
     );
   }
 
+//----------------------------Show popup action menu on pressed icon ---------------------------------
+
   void _showPopup(BuildContext context,Offset offset) async {
     var selected = await showMenu(context: context, position: RelativeRect.fromLTRB(offset.dx,offset.dy,0,0), items:[
       PopupMenuItem(child: Row(
@@ -126,7 +130,10 @@ class _NoteTemplateState extends State<NoteTemplate> {
     popUpMenuItemSelectedAction(selected,context);
   }
 
-  Future popUpMenuItemSelectedAction(dynamic selected,BuildContext context) async{
+  //====================================================================================================
+
+  //------------------------get popup menu item selected and make action to that-----------------------------
+   Future popUpMenuItemSelectedAction(dynamic selected,BuildContext context) async{
     if(selected == 'delete'){
       await repository.deleteData('Notes', widget.note.id);
       widget.getAllNotes();
@@ -137,4 +144,5 @@ class _NoteTemplateState extends State<NoteTemplate> {
       widget.getAllNotes();
     }
   }
+  //==========================================================================================================
 }
