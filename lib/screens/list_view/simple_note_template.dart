@@ -53,7 +53,7 @@ class _SimpleNoteTemplateState extends State<SimpleNoteTemplate> {
                   child: Icon(
                     Icons.star_border,
                     color: Colors.grey[700],
-                    size: 26.0,
+                    size: 28.0,
                   ),
                 ):GestureDetector(
                   onTap: (){
@@ -63,7 +63,7 @@ class _SimpleNoteTemplateState extends State<SimpleNoteTemplate> {
                   child: Icon(
                     Icons.star,
                     color: Colors.amber,
-                    size: 26.0,
+                    size: 28.0,
                   ),
                 ),
                 SizedBox(

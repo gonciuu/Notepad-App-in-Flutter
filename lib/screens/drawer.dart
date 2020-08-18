@@ -111,6 +111,7 @@ class _NotesDrawerState extends State<NotesDrawer> {
                 });
                 await Navigator.pushNamed(context, "/notes_by_category",arguments: listOfNotesMap);
                 getAllNotes();
+                widget.getAllNotes();
               } ,
             ),
             for(Note note in _listOfBusinessNotes) ListTile(
