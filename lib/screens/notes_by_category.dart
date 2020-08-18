@@ -22,6 +22,7 @@ class _NotesByCategoryState extends State<NotesByCategory> {
         Note note = Note();
         listOfNotes.add(note.mapToNote(noteMap));
       });
+      setState(() => listOfNotes.sort((note1,note2)=>note2.isStar.compareTo(note1.isStar)));
     }
     //=================================================================================================
 
