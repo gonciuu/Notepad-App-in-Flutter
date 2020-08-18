@@ -15,6 +15,7 @@ class _NotesByCategoryState extends State<NotesByCategory> {
   @override
   Widget build(BuildContext context) {
 
+    //---------------------------make list of note from list of note map------------------------------
     if(listOfNotes.isEmpty) {
       List<Map<String, dynamic>> listOfMaps = ModalRoute.of(context).settings.arguments;
       listOfMaps.forEach((noteMap) {
@@ -22,6 +23,7 @@ class _NotesByCategoryState extends State<NotesByCategory> {
         listOfNotes.add(note.mapToNote(noteMap));
       });
     }
+    //=================================================================================================
 
     return Scaffold(
       appBar: AppBar(

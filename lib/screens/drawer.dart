@@ -105,13 +105,9 @@ class _NotesDrawerState extends State<NotesDrawer> {
                 color: Colors.grey[900],
               ),
               onTap:()async{
-                List<Map<String,dynamic>> listOfNotesMap = List<Map<String,dynamic>>();
-                _listOfBusinessNotes.forEach((note) {
-                  listOfNotesMap.add(note.noteToMap());
-                });
+                List<Map<String,dynamic>> listOfNotesMap = notesListToMapList(_listOfBusinessNotes);
                 await Navigator.pushNamed(context, "/notes_by_category",arguments: listOfNotesMap);
-                getAllNotes();
-                widget.getAllNotes();
+                refresh();
               } ,
             ),
             for(Note note in _listOfBusinessNotes) ListTile(
@@ -131,6 +127,11 @@ class _NotesDrawerState extends State<NotesDrawer> {
               color: Colors.grey[400],
             ),
             ListTile(
+              onTap: ()async{
+                List<Map<String,dynamic>> listOfNotesMap = notesListToMapList(_listOfHomeNotes);
+                await Navigator.pushNamed(context, "/notes_by_category",arguments: listOfNotesMap);
+                refresh();
+              },
               title: Text(
                 "Home",
                 style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
@@ -158,6 +159,11 @@ class _NotesDrawerState extends State<NotesDrawer> {
               color: Colors.grey[400],
             ),
             ListTile(
+              onTap: ()async{
+                List<Map<String,dynamic>> listOfNotesMap = notesListToMapList(_listOfOtherNotes);
+                await Navigator.pushNamed(context, "/notes_by_category",arguments: listOfNotesMap);
+                refresh();
+              },
               title: Text(
                 "Other",
                 style: TextStyle(fontSize: 18.0, color: Colors.grey[900]),
@@ -186,5 +192,22 @@ class _NotesDrawerState extends State<NotesDrawer> {
         ),
       ),
     );
+  }
+
+
+  //------------notes list to note map list------------
+  List<Map<String,dynamic>> notesListToMapList(List<Note> listOfNotes){
+    List<Map<String,dynamic>> listOfNotesMap = List<Map<String,dynamic>>();
+    listOfNotes.forEach((note) {
+      listOfNotesMap.add(note.noteToMap());
+    });
+    return listOfNotesMap;
+  }
+  //===================================================
+
+  //---refresh state of notes---
+  void refresh(){
+    getAllNotes();
+    widget.getAllNotes();
   }
 }
