@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 class NotesDatabase{
 
+  //----------------------------------- create notes table in database -----------------------------------
   setDatabase() async {
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, 'db_notepad');

@@ -210,4 +210,5 @@ class _NotesDrawerState extends State<NotesDrawer> {
     getAllNotes();
     widget.getAllNotes();
   }
+  //============================
 }

@@ -299,6 +299,7 @@ class _EditNoteState extends State<EditNote> {
       category = bt;
     });
   }
+  //==========================================================================
 
   //------update note to database-------
   Future updateNote() async{
@@ -310,6 +311,7 @@ class _EditNoteState extends State<EditNote> {
     int result = await _repository.updateData("Notes", note.noteToMap());
     print(result);
   }
+  //=====================================
 
 
   //----------show time picker to pick the note time--------------
@@ -322,6 +324,7 @@ class _EditNoteState extends State<EditNote> {
     if(t != null)
       setState(() =>timeController.text = t.format(context));
   }
+  //==============================================================
 
 
   //---------show date picker to pick note date----------
@@ -336,6 +339,7 @@ class _EditNoteState extends State<EditNote> {
     if(pickedDate != null)
       setState(() =>dateController.text = DateFormat('MMM dd,yyyy').format(pickedDate));
   }
+  //======================================================
 
 
 

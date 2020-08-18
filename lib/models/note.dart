@@ -2,6 +2,7 @@ class Note {
   String title, description, time, date, category;
   int isStar, id;
 
+  //constructor
   Note({this.id,
         this.description,
         this.category,
@@ -10,6 +11,7 @@ class Note {
         this.isStar,
         this.time});
 
+  // ------ note object to map --------
   Map<String,dynamic> noteToMap(){
     Map<String,dynamic> map = Map<String,dynamic>();
     map['id'] = this.id;
@@ -21,7 +23,9 @@ class Note {
     map['isStar'] = this.isStar;
     return map;
   }
+  //====================================
 
+  //---------------- note map to note object ----------------
   Note mapToNote(Map<String,dynamic> map){
     Note note =
     Note(id: map['id'],
@@ -33,6 +37,7 @@ class Note {
         time:map['time']);
     return note;
   }
+  //==========================================================
 
 
 

@@ -300,6 +300,7 @@ class _WriteNoteState extends State<WriteNote> {
       category = bt;
     });
   }
+  //==========================================================================
 
   //------save note to database-------
   Future saveNote() async{
@@ -314,6 +315,7 @@ class _WriteNoteState extends State<WriteNote> {
     int result = await _repository.insertData("Notes", note.noteToMap());
     print(result);
   }
+  //=====================================
 
 
   //----------show time picker to pick the note time--------------
@@ -326,6 +328,7 @@ class _WriteNoteState extends State<WriteNote> {
     if(t != null)
       setState(() =>timeController.text = t.format(context));
   }
+  //===============================================================
 
 
   //---------show date picker to pick note date----------
@@ -340,6 +343,7 @@ class _WriteNoteState extends State<WriteNote> {
     if(pickedDate != null)
       setState(() =>dateController.text = DateFormat('MMM dd,yyyy').format(pickedDate));
   }
+  //======================================================
 
 
 

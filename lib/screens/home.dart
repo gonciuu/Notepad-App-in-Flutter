@@ -12,9 +12,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   //all notes
-  List<Note> listOfNotes = List<Note>();
+  List<Note> listOfNotes = List<Note>();//list of all notes
   //search result notes
-  List<Note> searchResult = List<Note>();
+  List<Note> searchResult = List<Note>();//search result list
 
   Repository _repository = Repository();
 
@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
   final searchController = TextEditingController();
 
 
-  //get all notes
+  //---------------get all notes from database-------------------
   Future getAllNotes() async {
     searchController.clear();
     searchResult.clear();
@@ -44,6 +44,7 @@ class _HomeState extends State<Home> {
     listOfNotes.sort((note1,note2)=> note2.isStar.compareTo(note1.isStar));
     setNotesListToSearchedList();
   }
+  //=============================================================
 
   @override
   Widget build(BuildContext context) {
@@ -167,8 +168,8 @@ class _HomeState extends State<Home> {
 
   //------set all notes values to searchedlist-------
   void setNotesListToSearchedList() => listOfNotes.forEach((note) =>setState(() =>searchResult.add(note)));
-
+  //==========================
 
 
 }
-  //==========================
+

@@ -4,7 +4,7 @@ import 'package:enotepad/models/note.dart';
 import 'package:flutter/material.dart';
 
 class SimpleNoteTemplate extends StatefulWidget {
-  final Note note;
+  final Note note;//note to set in list tile
   SimpleNoteTemplate({this.note});
   @override
   _SimpleNoteTemplateState createState() => _SimpleNoteTemplateState();

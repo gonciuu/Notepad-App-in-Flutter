@@ -1,5 +1,4 @@
 import 'package:enotepad/models/note.dart';
-import 'package:enotepad/screens/list_view/note_teplate.dart';
 import 'package:enotepad/screens/list_view/simple_note_template.dart';
 import 'package:flutter/material.dart';
 
