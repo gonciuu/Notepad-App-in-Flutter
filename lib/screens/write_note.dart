@@ -81,7 +81,9 @@ class _WriteNoteState extends State<WriteNote> {
                         size: 32.0,
                         color: Colors.grey[400],
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     )
                   ],
                 ),
